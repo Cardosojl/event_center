@@ -2,14 +2,29 @@ package com.cardosojl.models;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "merchants")
 public class Merchant implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(length = 45, nullable = false)
 	private String name;
+	@Column(length = 45, nullable = false)
 	private String password;
+	@Column(length = 11, nullable = false)
 	private String phone;
+	@Column(length = 45, nullable = false)
 	private String email;
 	
 	public Integer getId() {
