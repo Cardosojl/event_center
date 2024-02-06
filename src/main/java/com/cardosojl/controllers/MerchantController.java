@@ -11,6 +11,7 @@ import com.cardosojl.models.EventType;
 @RestController
 @RequestMapping("/api/merchants/V1")
 public class MerchantController {
+	
 	@GetMapping(value = "")
 	public EventType index() {
 		EventType ev = new EventType();

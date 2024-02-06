@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cardosojl.models.Event;
 import com.cardosojl.repositories.EventRepository;
+import com.cardosojl.exceptions.exceptions.ResourceNotFoundException;
 
 @Service
 public class EventService {
@@ -24,7 +25,7 @@ public class EventService {
 	
 	public Event findOne(Integer id) {
 		logger.info("Searching for an Event");
-		Event event = repository.findById(id).orElseThrow(() -> new Error());
+		Event event = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		return event;
 	}
 	
@@ -35,7 +36,7 @@ public class EventService {
 	
 	public Event update(Event e) {
 		logger.info("Updating an Event");
-		Event event = repository.findById(e.getId()).orElseThrow(() -> new Error());
+		Event event = repository.findById(e.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		if (e.getName() != null) event.setName(e.getName());
 		if (e.getDate() != null) event.setDate(e.getDate());
 		if (e.getDescription() != null) event.setDescription(e.getDescription());

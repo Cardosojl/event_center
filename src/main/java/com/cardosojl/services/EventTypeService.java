@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cardosojl.exceptions.exceptions.ResourceNotFoundException;
 import com.cardosojl.models.EventType;
 import com.cardosojl.repositories.EventTypeRepository;
 
@@ -24,7 +25,7 @@ public class EventTypeService {
 	
 	public EventType findOne(Integer id) {
 		logger.info("Searching for a Type");
-		EventType type = repository.findById(id).orElseThrow(() -> new Error());
+		EventType type = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		return type;
 	}
 	
@@ -35,7 +36,7 @@ public class EventTypeService {
 	
 	public EventType updateOne(EventType e) {
 		logger.info("Updating a Type");
-		EventType type = repository.findById(e.getId()).orElseThrow(() -> new Error());
+		EventType type = repository.findById(e.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		if (e.getType() != null) type.setType(e.getType());
 		return type;
 	}
