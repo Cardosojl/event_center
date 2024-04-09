@@ -1,20 +1,16 @@
 package com.cardosojl.repositories;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.cardosojl.models.Event;
+import com.cardosojl.models.User;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 	
-	@Query("SELECT e FROM Event e WHERE DATE(e.date) = :date")
-	List<Event> findEventByDate(@Param("date") Date date);
-	
+	@Query("SELECT u FROM User u WHERE u.email =:email")
+	User findByUsername(@Param("email") String email);
 
 }

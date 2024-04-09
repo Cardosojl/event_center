@@ -12,19 +12,25 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "event_types")
 public class EventType implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = -956641266606591769L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(length = 25, nullable = false)
 	private String type;
 	
-	public Integer getId() {
+	public EventType() {}
+	
+	public EventType(String type) {
+		this.type = type;
+	}
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getType() {

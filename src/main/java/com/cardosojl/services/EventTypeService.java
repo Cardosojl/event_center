@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cardosojl.exceptions.exceptions.ResourceNotFoundException;
 import com.cardosojl.models.EventType;
+import com.cardosojl.models.dtos.EventTypeDTO;
 import com.cardosojl.repositories.EventTypeRepository;
 
 @Service
@@ -17,32 +20,35 @@ public class EventTypeService {
 	EventTypeRepository repository;
 	Logger logger = Logger.getLogger(EventTypeService.class.getName());
 	
-	public List<EventType> findAll() {
-		logger.info("Searching for all");
-		List<EventType> types = repository.findAll();
-		return types;
+	public List<EventTypeDTO> findAll(Pageable pageable) {
+		logger.info("Searching for all Event Types");
+		Page<EventType> eventTypePages = repository.findAll(pageable);
+		Page<EventTypeDTO> eventTypesDTO = eventTypePages.map(e -> new EventTypeDTO(e));
+		return eventTypesDTO.getContent();
 	}
 	
-	public EventType findOne(Integer id) {
+	public EventTypeDTO findOne(Long id) {
 		logger.info("Searching for a Type");
 		EventType type = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-		return type;
+		return new EventTypeDTO(type);
 	}
 	
-	public EventType create(EventType e) {
+	public EventTypeDTO create(EventTypeDTO e) {
 		logger.info("Creating a Type");
-		return repository.save(e);
+		EventType eventType = new EventType(e.getType());
+		return new EventTypeDTO(repository.save(eventType));
 	}
 	
-	public EventType updateOne(EventType e) {
+	public EventTypeDTO updateOne(EventTypeDTO e) {
 		logger.info("Updating a Type");
 		EventType type = repository.findById(e.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		if (e.getType() != null) type.setType(e.getType());
-		return type;
+		return new EventTypeDTO(repository.save(type));
 	}
 	
-	public void deleteOne(Integer id) {
+	public void deleteOne(Long id) {
 		logger.info("Deleting a Type");
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		repository.deleteById(id);
 	}
 

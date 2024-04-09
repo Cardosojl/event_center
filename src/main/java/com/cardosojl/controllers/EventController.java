@@ -17,42 +17,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cardosojl.models.dtos.MerchantDTO;
-import com.cardosojl.services.MerchantService;
-
-
+import com.cardosojl.models.dtos.EventDTO;
+import com.cardosojl.models.dtos.EventTypeDTO;
+import com.cardosojl.models.dtos.OrganizerDTO;
+import com.cardosojl.services.EventService;
 
 @RestController
-@RequestMapping("/api/merchant/V1")
-public class MerchantController {
+@RequestMapping("/api/event/V1")
+public class EventController {
 	@Autowired
-	private MerchantService service;
+	private EventService service;
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MerchantDTO>> index(
+	public ResponseEntity<List<EventDTO<EventTypeDTO, OrganizerDTO>>> index(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "limit", defaultValue = "2") Integer limit) {
+			@RequestParam(value = "limit", defaultValue = "2") Integer limit){
 		Pageable pageable = PageRequest.of(page, limit);
-		List<MerchantDTO> merchants = service.findAll(pageable);
-		return ResponseEntity.ok(merchants);
+		List<EventDTO<EventTypeDTO, OrganizerDTO>> events = service.findAll(pageable);
+		return ResponseEntity.ok(events);
 	}
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public MerchantDTO show(@PathVariable(value = "id") Long id) {
-		MerchantDTO merchantDTO = service.findOne(id);
-		return merchantDTO;
+	public EventDTO<EventTypeDTO, OrganizerDTO> show(@PathVariable(value = "id") Long id) {
+		EventDTO<EventTypeDTO, OrganizerDTO> event = service.findOne(id);		
+		return event;
+	}
+	
+	@GetMapping(value = "/findEventByDate/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<EventDTO<EventTypeDTO, OrganizerDTO>> show(@PathVariable(value = "date") String date) {
+		List<EventDTO<EventTypeDTO, OrganizerDTO>> event = service.findOneByDate(date);	
+		return event;
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public MerchantDTO store(@RequestBody MerchantDTO merchant) {
-		MerchantDTO merchantDTO = service.create(merchant);
-		return merchantDTO;
+	public EventDTO<EventTypeDTO, OrganizerDTO> store(@RequestBody EventDTO<Long, Long> event) {
+		EventDTO<EventTypeDTO, OrganizerDTO> eventDTO = service.create(event);
+		return eventDTO;
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public MerchantDTO update(@RequestBody MerchantDTO merchant) {
-		MerchantDTO merchantDTO = service.updateOne(merchant);
-		return merchantDTO;
+	public EventDTO<EventTypeDTO, OrganizerDTO> update(@RequestBody EventDTO<Long, Long> event) {
+		EventDTO<EventTypeDTO, OrganizerDTO> eventDTO = service.updateOne(event);
+		return eventDTO;
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -60,6 +66,5 @@ public class MerchantController {
 		service.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}
-	
 
 }

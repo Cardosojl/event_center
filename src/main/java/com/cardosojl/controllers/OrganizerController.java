@@ -17,42 +17,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cardosojl.models.dtos.MerchantDTO;
-import com.cardosojl.services.MerchantService;
-
-
+import com.cardosojl.models.dtos.OrganizerDTO;
+import com.cardosojl.services.OrganizerService;
 
 @RestController
-@RequestMapping("/api/merchant/V1")
-public class MerchantController {
+@RequestMapping("/api/organizer/V1")
+public class OrganizerController {
 	@Autowired
-	private MerchantService service;
+	OrganizerService service;
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MerchantDTO>> index(
+	public ResponseEntity<List<OrganizerDTO>> index(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "limit", defaultValue = "2") Integer limit) {
 		Pageable pageable = PageRequest.of(page, limit);
-		List<MerchantDTO> merchants = service.findAll(pageable);
-		return ResponseEntity.ok(merchants);
+		List<OrganizerDTO> organizers = service.findAll(pageable);
+		return ResponseEntity.ok(organizers);
 	}
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public MerchantDTO show(@PathVariable(value = "id") Long id) {
-		MerchantDTO merchantDTO = service.findOne(id);
-		return merchantDTO;
+	public OrganizerDTO show(@PathVariable(value = "id") Long id) {
+		OrganizerDTO organizerDTO = service.findOne(id);
+		return organizerDTO;
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public MerchantDTO store(@RequestBody MerchantDTO merchant) {
-		MerchantDTO merchantDTO = service.create(merchant);
-		return merchantDTO;
+	public OrganizerDTO store(@RequestBody OrganizerDTO o) {
+		OrganizerDTO organizerDTO = service.create(o);
+		return organizerDTO;
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public MerchantDTO update(@RequestBody MerchantDTO merchant) {
-		MerchantDTO merchantDTO = service.updateOne(merchant);
-		return merchantDTO;
+	public OrganizerDTO update(@RequestBody OrganizerDTO o) {
+		OrganizerDTO organizerDTO = service.updateOne(o);
+		return organizerDTO;
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -60,6 +58,5 @@ public class MerchantController {
 		service.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}
-	
 
 }
