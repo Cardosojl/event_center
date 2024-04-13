@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.cardosojl.models.User;
 import com.cardosojl.models.dtos.AccountCredentialsDTO;
 import com.cardosojl.models.dtos.TokenDTO;
 import com.cardosojl.repositories.UserRepository;
@@ -30,7 +31,7 @@ public class AuthService {
 			var username = data.getEmail();	
 			var password = data.getPassword();
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-			var user = repository.findByUsername(username);
+			User user = repository.findByUsername(username);
 			var tokenResponse = new TokenDTO();
 			if (user != null) {
 				tokenResponse = tokenProvider.createAccessToken(username, user.getName(), user.getRoles());				

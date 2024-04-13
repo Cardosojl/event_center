@@ -51,6 +51,26 @@ public class User implements UserDetails, Serializable {
 	
 	public User() {}
 	
+	public User (String email, String name, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled) {
+		this.email = email;
+		this.name = name;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
+		this.credentialsNonExpired = credentialsNonExpired;
+		this.enabled = enabled;
+	}
+	
+	public User (String email, String name, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled, String password, List<Permission> permissions) {
+		this.email = email;
+		this.name = name;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
+		this.credentialsNonExpired = credentialsNonExpired;
+		this.enabled = enabled;
+		this.password = password;
+		this.permissions = permissions;
+	}
+	
 	public Long getId() {
 		return id;
 	}

@@ -3,6 +3,7 @@ package com.cardosojl.security.jwt;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +50,8 @@ public class JwtTokenProvider {
 		Date validity = new Date(now.getTime() + validityInMilliseconds);
 		var accessToken = getAccessToken(email, username, roles, now, validity);
 		var refreshToken = getRefreshToken(email, username, roles, now);
-		return new TokenDTO(username, email, true, now, validity, accessToken, refreshToken);
+		String role = roles.stream().collect(Collectors.joining(", "));
+		return new TokenDTO(username, email, role, true, now, validity, accessToken, refreshToken);
 	}
 
 	private String getAccessToken(String email, String username, List<String> roles, Date now, Date validity) {

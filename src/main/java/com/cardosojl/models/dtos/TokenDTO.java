@@ -10,6 +10,7 @@ public class TokenDTO implements Serializable {
 	
 	private String username;
 	private String email;
+	private String role;
 	private Boolean authenticated;
 	private Date created;
 	private Date expirantion;
@@ -18,11 +19,12 @@ public class TokenDTO implements Serializable {
 	
 	public TokenDTO() {}
 	
-	public TokenDTO(String username, String email, Boolean authenticated, Date created, Date expirantion,
+	public TokenDTO(String username, String email, String role, Boolean authenticated, Date created, Date expirantion,
 			String accessToken, String refreshToken) {
 		super();
 		this.username = username;
 		this.email = email;
+		this.role = role;
 		this.authenticated = authenticated;
 		this.created = created;
 		this.expirantion = expirantion;
@@ -44,6 +46,16 @@ public class TokenDTO implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public Boolean getAuthenticated() {
