@@ -18,6 +18,7 @@ public class AuthController {
 	@Autowired
 	AuthService authServices;
 	
+	@SuppressWarnings("rawtypes")
 	@PostMapping(value = "/signin")
 	public ResponseEntity signin(@RequestBody AccountCredentialsDTO data) {
 		if (data == null || data.getEmail() == null || data.getEmail().isBlank() || data.getPassword() == null || data.getPassword().isBlank()) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client Request");

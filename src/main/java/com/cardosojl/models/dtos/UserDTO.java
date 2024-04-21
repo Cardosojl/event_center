@@ -1,12 +1,16 @@
 package com.cardosojl.models.dtos;
 
 import java.io.Serializable;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.cardosojl.models.Permission;
 import com.cardosojl.models.User;
+import com.cardosojl.models.UserInterface;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserDTO<P> implements Serializable {
+public class UserDTO<P> implements Serializable, UserInterface {
 
 	private static final long serialVersionUID = 6026062986300437308L;
 	
@@ -19,6 +23,7 @@ public class UserDTO<P> implements Serializable {
 	private Boolean credentialsNonExpired;
 	private Boolean enabled;
 	private P permissions;
+	private String role = null;
 	
 	public UserDTO() {}
 	
@@ -30,7 +35,7 @@ public class UserDTO<P> implements Serializable {
 		this.accontNonLocked = u.getAccountNonLocked();
 		this.credentialsNonExpired = u.getCredentialsNonExpired();
 		this.enabled = u.getEnabled();
-		this.permissions = (P) u.getPermissions().stream().map(p -> new PermissionDTO(p)).toString();
+		this.role = (String) u.getPermissions().stream().map(p -> new PermissionDTO(p).getDescription()).collect(Collectors.joining(", "));
 	}
 	
 	public Long getId() {
@@ -56,11 +61,11 @@ public class UserDTO<P> implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	@JsonIgnore
 	public String getPassword() {
 		return Password;
 	}
-	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public void setPassword(String password) {
 		Password = password;
 	}
@@ -97,12 +102,35 @@ public class UserDTO<P> implements Serializable {
 		this.enabled = enabled;
 	}
 	
+	@JsonIgnore
 	public P getPermissions() {
 		return permissions;
 	}
-	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public void setPermissions(P permissions) {
 		this.permissions = permissions;
+	}
+
+	@Override
+	public String getRole() {
+		return this.role;
+	}
+
+	@Override
+	public void setRole(String role) {
+		this.role = role;
+		
+	}
+	
+	public void setRole(List<String> roles) {
+		this.role =  ((List<String>) roles).stream().collect(Collectors.joining(", "));	
+	}
+	
+	@JsonIgnore
+	@Override
+	public Boolean isAnAcceptableRole() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

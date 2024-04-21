@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cardosojl.models.dtos.EventDTO;
 import com.cardosojl.models.dtos.EventTypeDTO;
+import com.cardosojl.models.dtos.MerchantDTO;
 import com.cardosojl.models.dtos.OrganizerDTO;
 import com.cardosojl.services.EventService;
 
@@ -59,6 +60,18 @@ public class EventController {
 	public EventDTO<EventTypeDTO, OrganizerDTO> update(@RequestBody EventDTO<Long, Long> event) {
 		EventDTO<EventTypeDTO, OrganizerDTO> eventDTO = service.updateOne(event);
 		return eventDTO;
+	}
+	
+	@PutMapping(value = "/addMerchant/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public EventDTO<EventTypeDTO, OrganizerDTO> updateToAddMerchant(@PathVariable(value = "id") Long id, @RequestBody MerchantDTO merchant ){
+		EventDTO<EventTypeDTO, OrganizerDTO> event = service.addMerchant(id, merchant.getId());
+		return event;
+	}
+	
+	@PutMapping(value = "/removeMerchant/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public EventDTO<EventTypeDTO, OrganizerDTO> updateToRemoveMerchant(@PathVariable(value = "id") Long id, @RequestBody MerchantDTO merchant ){
+		EventDTO<EventTypeDTO, OrganizerDTO> event = service.removeMerchant(id, merchant.getId());
+		return event;
 	}
 	
 	@DeleteMapping(value = "/{id}")

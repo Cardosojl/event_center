@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -48,6 +49,8 @@ public class User implements UserDetails, Serializable {
 	@JoinTable(name = "user_permission", joinColumns = {@JoinColumn (name = "id_user")},
 	inverseJoinColumns = {@JoinColumn (name = "id_permission")})
 	private List<Permission> permissions;
+	@OneToMany(mappedBy = "organizer")
+	private List<Event> events =  new ArrayList<Event>();
 	
 	public User() {}
 	

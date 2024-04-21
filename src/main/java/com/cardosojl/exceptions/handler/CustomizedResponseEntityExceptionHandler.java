@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.cardosojl.exceptions.ExceptionResponse;
 import com.cardosojl.exceptions.exceptions.InvalidJwtAuthenticationException;
+import com.cardosojl.exceptions.exceptions.InvalidOperationException;
 import com.cardosojl.exceptions.exceptions.RequiredObjectIsNullException;
 import com.cardosojl.exceptions.exceptions.ResourceNotFoundException;
 
@@ -41,6 +42,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationException(Exception ex, WebRequest request) {
 		ExceptionResponse exception = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(exception, HttpStatus.FORBIDDEN);
+	}
+	
+	@ExceptionHandler(InvalidOperationException.class)
+	public final ResponseEntity<ExceptionResponse> handleInvalidOperationException(Exception ex, WebRequest request) {
+		ExceptionResponse exception = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
 	}
 
 }
