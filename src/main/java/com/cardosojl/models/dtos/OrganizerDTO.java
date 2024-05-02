@@ -25,13 +25,6 @@ public class OrganizerDTO implements Serializable, UserInterface {
 	
 	public OrganizerDTO() {}
 	
-	public OrganizerDTO(UserInterface u) {
-		this.id = u.getId();
-		this.name = u.getName();
-		this.email = u.getEmail();
-		this.role = u.getRole();
-	}
-	
 	public OrganizerDTO(User u) {
 		this.id = u.getId();
 		this.name = u.getName();
@@ -42,6 +35,7 @@ public class OrganizerDTO implements Serializable, UserInterface {
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -58,18 +52,25 @@ public class OrganizerDTO implements Serializable, UserInterface {
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
 	public String getPassword() {
 		return password;
 	}
+	
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}

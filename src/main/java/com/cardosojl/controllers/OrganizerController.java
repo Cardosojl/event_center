@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cardosojl.models.UserInterface;
 import com.cardosojl.models.dtos.OrganizerDTO;
 import com.cardosojl.services.UserService;
 
@@ -26,7 +27,7 @@ public class OrganizerController {
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public OrganizerDTO update(@RequestBody OrganizerDTO o) {
+	public OrganizerDTO update(@RequestBody UserInterface o) {
 		OrganizerDTO organizerDTO = service.updateOneOrganizer(o);
 		return organizerDTO;
 	}

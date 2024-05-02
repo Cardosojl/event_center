@@ -30,13 +30,6 @@ public class MerchantDTO implements Serializable, UserInterface {
 		this.email = email;
 	}
 	
-	public MerchantDTO(UserInterface u) {
-		this.id = u.getId();
-		this.name = u.getName();
-		this.email = u.getEmail();
-		this.role = u.getRole();
-	}
-	
 	public MerchantDTO(User u) {
 		this.id = u.getId();
 		this.name = u.getName();

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.cardosojl.exceptions.exceptions.ResourceNotFoundException;
 import com.cardosojl.models.Permission;
 import com.cardosojl.models.User;
+import com.cardosojl.models.UserInterface;
 import com.cardosojl.models.dtos.MerchantDTO;
 import com.cardosojl.models.dtos.OrganizerDTO;
 import com.cardosojl.models.dtos.UserDTO;
@@ -112,7 +113,7 @@ public class UserService implements UserDetailsService {
 		return new UserDTO<String>(repository.save(user));
 	}
 	
-	public MerchantDTO updateOneMerchant(MerchantDTO m) {
+	public MerchantDTO updateOneMerchant(UserInterface m) {
 		logger.info("Updating a Merchant");
 		User user = repository.findById(m.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		MerchantDTO merchant = new MerchantDTO(user);
@@ -125,7 +126,7 @@ public class UserService implements UserDetailsService {
 		return new MerchantDTO(repository.save(user));
 	}
 	
-	public OrganizerDTO updateOneOrganizer(OrganizerDTO m) {
+	public OrganizerDTO updateOneOrganizer(UserInterface m) {
 		logger.info("Updating a Merchant");
 		User user = repository.findById(m.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		OrganizerDTO organizer = new OrganizerDTO(user);

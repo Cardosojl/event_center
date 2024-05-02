@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cardosojl.models.UserInterface;
 import com.cardosojl.models.dtos.MerchantDTO;
 import com.cardosojl.services.UserService;
 
@@ -30,7 +31,7 @@ public class MerchantController {
 	
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)     
-	public MerchantDTO update(@RequestBody MerchantDTO merchant) {
+	public MerchantDTO update(@RequestBody UserInterface merchant) {
 		MerchantDTO merchantDTO = service.updateOneMerchant(merchant);
 		return merchantDTO;
 	}
