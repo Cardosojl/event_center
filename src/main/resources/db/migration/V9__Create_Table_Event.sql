@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `events` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `date` DATETIME NOT NULL,
     `description` varchar(800),
-    `status` ENUM('under_analysis', 'approved', 'rejected') NOT NULL DEFAULT 'under_analysis',
+    `status` ENUM('UNDER_ANALYSIS', 'APPROVED', 'REJECTED') NOT NULL DEFAULT 'UNDER_ANALYSIS',
     `name` varchar(45) NOT NULL,
     `event_request` varchar(800) NOT NULL,
     `event_type_id` bigint(20) NOT NULL,

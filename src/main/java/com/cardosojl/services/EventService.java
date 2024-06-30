@@ -76,7 +76,7 @@ public class EventService {
 		}
 		EventType eventType = eventTypeRepository.findById(e.getEventType()).orElseThrow(() -> new ResourceNotFoundException("No eventType found for this ID"));
 		
-		Event event = new Event(e.getName(), EventStatusENUM.under_analysis, e.getDate(), e.getEventRequest(), e.getDescription(), organizer, eventType);		
+		Event event = new Event(e.getName(), EventStatusENUM.UNDER_ANALYSIS, e.getDate(), e.getEventRequest(), e.getDescription(), organizer, eventType);		
 		return new EventDTO<EventTypeDTO, OrganizerDTO>(repository.save(event));
 	}
 	

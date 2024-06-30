@@ -30,7 +30,7 @@ public class Event implements Serializable {
 	@Column(length = 45, nullable = false)
 	private String name;
 	@Enumerated(EnumType.STRING)
-	 @Column(columnDefinition = "ENUM('under_analysis', 'approved', 'rejected')' DEFAULT 'under_analysis'", nullable = false)
+	 @Column(columnDefinition = "ENUM('UNDER_ANALYSIS', 'APPROVED', 'REJECTED')' DEFAULT 'UNDER_ANALYSIS'", nullable = false)
 	private EventStatusENUM status;
 	@Column(nullable = false)
 	private LocalDateTime date;
