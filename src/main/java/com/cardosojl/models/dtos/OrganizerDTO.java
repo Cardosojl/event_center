@@ -25,6 +25,13 @@ public class OrganizerDTO implements Serializable, UserInterface {
 	
 	public OrganizerDTO() {}
 	
+	public OrganizerDTO(Long id, String name, String email) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+	}
+	
 	public OrganizerDTO(User u) {
 		this.id = u.getId();
 		this.name = u.getName();

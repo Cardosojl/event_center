@@ -98,25 +98,16 @@ public class User implements UserDetails, Serializable {
 		this.name = name;
 	}
 
-	public Boolean getAccountNonExpired() {
-		return accountNonExpired;
-	}
 
 	public void setAccountNonExpired(Boolean accountNonExpired) {
 		this.accountNonExpired = accountNonExpired;
 	}
 
-	public Boolean getAccountNonLocked() {
-		return accountNonLocked;
-	}
 
 	public void setAccountNonLocked(Boolean accountNonLocked) {
 		this.accountNonLocked = accountNonLocked;
 	}
 
-	public Boolean getCredentialsNonExpired() {
-		return credentialsNonExpired;
-	}
 
 	public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
 		this.credentialsNonExpired = credentialsNonExpired;
@@ -137,6 +128,11 @@ public class User implements UserDetails, Serializable {
 	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
 	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -154,12 +150,7 @@ public class User implements UserDetails, Serializable {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.permissions;
 	}
-
-	@Override
-	public String getPassword() {
-		return this.password;
-	}
-
+	
 	@Override
 	public String getUsername() {
 		return this.email;

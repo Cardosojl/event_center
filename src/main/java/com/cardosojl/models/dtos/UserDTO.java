@@ -31,9 +31,9 @@ public class UserDTO<P> implements Serializable, UserInterface {
 		this.id = u.getId();
 		this.name = u.getName();
 		this.email = u.getEmail();
-		this.accontNonExpired = u.getAccountNonExpired();
-		this.accontNonLocked = u.getAccountNonLocked();
-		this.credentialsNonExpired = u.getCredentialsNonExpired();
+		this.accontNonExpired = u.isAccountNonExpired();
+		this.accontNonLocked = u.isAccountNonLocked();
+		this.credentialsNonExpired = u.isCredentialsNonExpired();
 		this.enabled = u.getEnabled();
 		this.role = (String) u.getPermissions().stream().map(p -> new PermissionDTO(p).getDescription()).collect(Collectors.joining(", "));
 	}
@@ -70,7 +70,7 @@ public class UserDTO<P> implements Serializable, UserInterface {
 		Password = password;
 	}
 	
-	public Boolean getAccontNonExpired() {
+	public Boolean isAccontNonExpired() {
 		return accontNonExpired;
 	}
 	
@@ -78,7 +78,7 @@ public class UserDTO<P> implements Serializable, UserInterface {
 		this.accontNonExpired = accontNonExpired;
 	}
 	
-	public Boolean getAccontNonLocked() {
+	public Boolean isAccontNonLocked() {
 		return accontNonLocked;
 	}
 	
@@ -86,7 +86,7 @@ public class UserDTO<P> implements Serializable, UserInterface {
 		this.accontNonLocked = accontNonLocked;
 	}
 	
-	public Boolean getCredentialsNonExpired() {
+	public Boolean isCredentialsNonExpired() {
 		return credentialsNonExpired;
 	}
 	
@@ -94,7 +94,7 @@ public class UserDTO<P> implements Serializable, UserInterface {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 	
-	public Boolean getEnabled() {
+	public Boolean isEnabled() {
 		return enabled;
 	}
 	

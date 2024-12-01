@@ -89,10 +89,10 @@ public class UserService implements UserDetailsService {
 		Permission permission = permissionRepository.findById((long) u.getPermissions()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		User user = new User(u.getEmail(),
 				u.getName(),
-				u.getAccontNonExpired(),
-				u.getAccontNonLocked(),
-				u.getCredentialsNonExpired(),
-				u.getEnabled(),
+				u.isAccontNonExpired(),
+				u.isAccontNonLocked(),
+				u.isCredentialsNonExpired(),
+				u.isEnabled(),
 				password,
 				List.of(permission));
 		return new UserDTO<List<String>> (repository.save(user));		
@@ -104,10 +104,10 @@ public class UserService implements UserDetailsService {
 		if (u.getEmail() != null) user.setEmail(u.getEmail());
 		if (u.getName() != null) user.setName(u.getName());
 		if (u.getPassword() != null) user.setPassword(generateCryptography(u.getPassword()));
-		if (u.getAccontNonExpired() != null) user.setAccountNonExpired(u.getAccontNonExpired());
-		if (u.getAccontNonLocked() != null) user.setAccountNonLocked(u.getAccontNonLocked());
-		if (u.getCredentialsNonExpired() != null) user.setCredentialsNonExpired(u.getCredentialsNonExpired());
-		if (u.getEnabled() != null) user.setEnabled(u.getEnabled());
+		if (u.isAccontNonExpired() != null) user.setAccountNonExpired(u.isAccontNonExpired());
+		if (u.isAccontNonLocked() != null) user.setAccountNonLocked(u.isAccontNonLocked());
+		if (u.isCredentialsNonExpired() != null) user.setCredentialsNonExpired(u.isCredentialsNonExpired());
+		if (u.isEnabled() != null) user.setEnabled(u.isEnabled());
 		System.out.println(u.getPermissions());
 		if (u.getPermissions() != null) List.of(permissionRepository.findById((long) u.getPermissions()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID")));
 		return new UserDTO<String>(repository.save(user));
